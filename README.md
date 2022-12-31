@@ -7,7 +7,7 @@ Para ejecutar: Entorno de ejecución de Java  1.7 o superior.
 
 # Compilar
 
-javac -d ./build -cp src ./src/pantallazo/utilidades/*.java ./src/pantallazo/*.java
+javac -d ./build -cp src ./src/pantallazo/utilidades/Herramientas.java ./src/pantallazo/*.java
 
 # Construir el ejecutable
 
