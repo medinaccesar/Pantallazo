@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pantallazo;
 
 import java.util.logging.Level;
@@ -11,22 +7,21 @@ import pantallazo.utilidades.Herramientas;
 /**
  * Permite hacer capturas de pantalla por línea de comandos aplicando un retardo.
  * Admite parámetros, ver ayuda: java -jar Pantallazo.jar -a
+ *
  * @author César M.
  */
 public class Principal {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments     
      * 
-     * 
-     * Nota: para ejecutarlo en win usar -Dfile.encoding=cp850
-     * 
+     * Nota: para ejecutarlo en win usar -Dfile.encoding=cp850    
      */
     public static void main(String[] args) {
        
         Parametros p = new Parametros();
         p.establecerLinux(!Herramientas.dameSistemaOperativo().toUpperCase().equals("WIN"));
-        procesaArgumentos(args, p);
+        procesarArgumentos(args, p);
         Captura c = new Captura();
         try {
             if(p.hayRetardo()){
@@ -38,51 +33,56 @@ public class Principal {
         }
     }
 
-    private static void procesaArgumentos(String[] args, Parametros p) {
-        boolean nombreObligatorio=false;
-        boolean nombreAportado=false;
-        int longitud = args.length;
+    private static void procesarArgumentos(String[] args, Parametros p) {
+        
+        boolean nombreObligatorio = false;
+        boolean nombreAportado    = false;
+        int longitud              = args.length;
+
         for (int i = 0; i < longitud; i++) {
             String comando = args[i];
 
             if (comando.equals("-d")) {
+
                 if ((i + 1) < longitud) {
+
                     if (!args[i + 1].startsWith("-")) {
-                                              
-                       //Directorio de usuario:
-                        String dp = System.getProperty("user.home");
-                        if(!p.esLinux()){                           
-                            dp=dp.replaceAll("\\\\", "\\\\\\\\");  
-                        }
-                        p.establecerDestino(args[i + 1].replaceFirst("~", dp));
+                       establecerDestino(p,args[i + 1]);
                     }
                     else mostrarAyuda();
+
                 }else System.out.println("El modificador -d requiere un parámetro, se ignora");
 
             } else if (comando.equals("-nf")) {
+
                 p.noEstablecerFecha();
                 nombreObligatorio=true;
+
             } else if (comando.equals("-n")) {
+
                 if ((i + 1) < longitud) {                    
-                    if (!args[i + 1].startsWith("-")) {                       
+                    if (!args[i + 1].startsWith("-")) {   
+
                         p.establecerNombre(args[i + 1]);
                         nombreAportado=true;
+
                     }else mostrarAyuda();
+
                 }else System.out.println("El modificador -n requiere un parámetro, se ignora.");
+
             }else if (comando.equals("-r")) {
-                if ((i + 1) < longitud) {                    
+
+                if ((i + 1) < longitud) {        
+
                     if (!args[i + 1].startsWith("-")) {  
-                        try {
-                            int tpo = Integer.parseInt(args[i+1]);
-                            p.establecerRetardo(tpo);
-                        } catch (NumberFormatException ee) {
-                            System.out.println("Argumento -r con error. Se ejecuta sin retardo.");
-                           
-                        }                        
+
+                        establecerRetardo(p,args[i+1]);   
+
                     }else mostrarAyuda();
+
                 }else System.out.println("El modificador -r requiere un parámetro, se ignora.");
             }
-           else if (comando.equals("-a") || comando.equals("-h")) mostrarAyuda();
+            else if (comando.equals("-a") || comando.equals("-h")) mostrarAyuda();
         }
        
         if(nombreObligatorio && !nombreAportado){
@@ -91,9 +91,26 @@ public class Principal {
         }
 
     }
-
     
-     private static void mostrarAyuda() {
+    private static void establecerDestino(Parametros p, String destino){
+        //Directorio de usuario:
+        String dp = System.getProperty("user.home");
+        if(!p.esLinux()){                           
+            dp=dp.replaceAll("\\\\", "\\\\\\\\");  
+        }
+        p.establecerDestino(destino.replaceFirst("~", dp));
+    }
+
+    private static void establecerRetardo(Parametros p, String tiempo){
+       try {
+            int tpo = Integer.parseInt(tiempo);
+            p.establecerRetardo(tpo);
+        } catch (NumberFormatException ee) {
+            System.out.println("Argumento -r con error. Se ejecuta sin retardo.");            
+        }       
+    }
+
+    private static void mostrarAyuda() {
        
             System.out.println(
                     "\n\t==============  Pantallazo 1.0  =====================");
@@ -125,8 +142,6 @@ public class Principal {
                    "      java -jar Pantallazo.jar -r 5000");
             System.out.println(
                    "      java -jar Pantallazo.jar \n");
-            System.exit(0);       
-
-    }     
-      
+            System.exit(0); 
+    }       
 }

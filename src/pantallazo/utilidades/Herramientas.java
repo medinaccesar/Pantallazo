@@ -1,17 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pantallazo.utilidades;
 
 /**
+ * Distintas utilidades.
  *
  * @author César M.
  */
 public class Herramientas {
 
     /**
-     * Obtiene las tres primeras letras del sistema operativo.
+     * Obtiene las tres primeras letras de la identificación del sistema operativo.
      */
     public static String dameSistemaOperativo() {
 
@@ -29,7 +26,5 @@ public class Herramientas {
             milisFin = System.currentTimeMillis();
         }while(tiempo > milisFin - milisInicio);
      }
- 
-   
-    
+        
 }

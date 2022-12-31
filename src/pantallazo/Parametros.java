@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pantallazo;
 
 import java.text.DateFormat;
@@ -23,22 +19,20 @@ public class Parametros {
     private boolean esLinux;
     private int tiempoDeRetardo;
     private boolean hayRetardo;
-
     
     
     public Parametros() {
-        this.destino = "";       
-        this.nombre = "";  
-        this.hayQueEstablecerFecha=true;
-        this.hayRetardo=false;
+
+        this.destino                = "";       
+        this.nombre                 = "";  
+        this.hayQueEstablecerFecha  = true;
+        this.hayRetardo             = false;
         fecha();
     }
 
-    public void establecerDestino(String destino) {
-       
+    public void establecerDestino(String destino) {       
         this.destino = destino+File.separator;
     }
-
     
     public void noEstablecerFecha() {
         this.hayQueEstablecerFecha=false;
@@ -54,20 +48,19 @@ public class Parametros {
         this.nombre=nombre;
     }
     
-    public String dameDestinoFinal(){
-    
-        return this.destino+this.nombre+((hayQueEstablecerFecha)?this.fecha:"")+".png";
-    
+    public String dameDestinoFinal(){    
+        return this.destino+this.nombre+((hayQueEstablecerFecha)?this.fecha:"")+".png";    
     }
 
     public void establecerLinux(boolean b) {
         this.esLinux=b;
     }
-   public boolean esLinux() {
+
+    public boolean esLinux() {
         return this.esLinux;
     }
 
-    void establecerRetardo(int tpo) {
+    public void establecerRetardo(int tpo) {
         this.tiempoDeRetardo=tpo;
         this.hayRetardo=true;
     }

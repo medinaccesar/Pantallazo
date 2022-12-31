@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pantallazo;
 
 import java.awt.Dimension;
@@ -13,11 +9,11 @@ import javax.imageio.ImageIO;
 
 /**
  * Crea un fichero de imagen con la captura de pantalla.
+ *
  * @author César M.
  */
 public class Captura {
-    
-    
+        
     public void capturaPantalla(String fileName) throws Exception {
        
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
