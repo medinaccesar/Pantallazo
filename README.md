@@ -1,5 +1,5 @@
 # Pantallazo
-Genera una captura de pantalla con comandos.
+Genera una captura de pantalla en formato png, por defecto sin retardo, en el directorio actual y con la fecha como nombre. Admite opciones, ver ayuda.
 
 # Prerrequisitos
 Para compilar: Entorno de desarrollo de Java 1.7 o superior.
