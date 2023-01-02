@@ -15,7 +15,7 @@ jar cfm ./dist/Pantallazo.jar manifesto.txt -C ./build/ .
 
 # Uso
 
- java -jar Pantallazo.jar [-d <ruta>] [-n <nombre>]  [-nf] [-r <retardo>]
+ java -jar Pantallazo.jar [-d \<ruta>] [-n \<nombre>]  [-nf] [-r \<retardo>]
 
  # Ayuda y ejemplos
 
