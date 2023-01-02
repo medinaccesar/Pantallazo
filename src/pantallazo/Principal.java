@@ -13,27 +13,37 @@ import pantallazo.utilidades.Herramientas;
 public class Principal {
 
     /**
-     * @param args the command line arguments     
+     * Método principal.
+     * @param args Los argumentos de la llínea de comandos
      * 
      * Nota: para ejecutarlo en win usar -Dfile.encoding=cp850    
      */
     public static void main(String[] args) {
        
-        Parametros p = new Parametros();
-        p.establecerLinux(!Herramientas.dameSistemaOperativo().toUpperCase().equals("WIN"));
-        procesarArgumentos(args, p);
-        Captura c = new Captura();
+        Parametros param = new Parametros();  
+
+        //Si no es Win se considera Linux.      
+        param.establecerEsLinux(!Herramientas.dameSistemaOperativo().toUpperCase().equals("WIN"));
+
+        procesarArgumentos(args, param);
+
+        Captura cap = new Captura();
+        
         try {
-            if(p.hayRetardo()){
-                Herramientas.pausa(p.dameTiempoDeRetardo());
+            if(param.hayRetardo()){
+                Herramientas.pausa(param.dameTiempoDeRetardo());
             }
-            c.capturaPantalla(p.dameDestinoFinal());
+            cap.capturarPantalla(param.dameDestinoFinal());
         } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private static void procesarArgumentos(String[] args, Parametros p) {
+    /**
+     * Procesa los argumentos.
+     * @param args String Argumentos
+     * @param param Parametros 
+     */
+    private static void procesarArgumentos(String[] args, Parametros param) {
         
         boolean nombreObligatorio = false;
         boolean nombreAportado    = false;
@@ -44,10 +54,10 @@ public class Principal {
 
             if (comando.equals("-d")) {
 
-                if ((i + 1) < longitud) {
+                if (Herramientas.existeSiguienteParametro(i, longitud)) {
 
                     if (!args[i + 1].startsWith("-")) {
-                       establecerDestino(p,args[i + 1]);
+                       establecerDestino(param,args[i + 1]);
                     }
                     else mostrarAyuda();
 
@@ -55,15 +65,15 @@ public class Principal {
 
             } else if (comando.equals("-nf")) {
 
-                p.noEstablecerFecha();
+                param.noEstablecerFecha();
                 nombreObligatorio=true;
 
             } else if (comando.equals("-n")) {
 
-                if ((i + 1) < longitud) {                    
+                if (Herramientas.existeSiguienteParametro(i, longitud)) {                    
                     if (!args[i + 1].startsWith("-")) {   
 
-                        p.establecerNombre(args[i + 1]);
+                        param.establecerNombre(args[i + 1]);
                         nombreAportado=true;
 
                     }else mostrarAyuda();
@@ -72,11 +82,11 @@ public class Principal {
 
             }else if (comando.equals("-r")) {
 
-                if ((i + 1) < longitud) {        
+                if (Herramientas.existeSiguienteParametro(i, longitud)) {        
 
                     if (!args[i + 1].startsWith("-")) {  
 
-                        establecerRetardo(p,args[i+1]);   
+                        establecerRetardo(param,args[i+1]);   
 
                     }else mostrarAyuda();
 
@@ -90,26 +100,40 @@ public class Principal {
             mostrarAyuda();
         }
 
-    }
-    
-    private static void establecerDestino(Parametros p, String destino){
-        //Directorio de usuario:
-        String dp = System.getProperty("user.home");
-        if(!p.esLinux()){                           
-            dp=dp.replaceAll("\\\\", "\\\\\\\\");  
+    }  
+
+    /**
+     * Establece el destino donde se guarda la imagen de la captura.
+     * @param param Parametros
+     * @param destino String directorio
+     */
+    private static void establecerDestino(Parametros param, String destino){
+        
+        String dir = System.getProperty("user.home");
+        if(!param.esLinux()){                           
+            dir = dir.replaceAll("\\\\", "\\\\\\\\");  
         }
-        p.establecerDestino(destino.replaceFirst("~", dp));
+        param.establecerDestino(destino.replaceFirst("~", dir));
     }
 
-    private static void establecerRetardo(Parametros p, String tiempo){
+    /**
+     * Establece un retardo.
+     * @param param Parametros
+     * @param tiempo String 
+     */
+    private static void establecerRetardo(Parametros param, String tiempo){
        try {
             int tpo = Integer.parseInt(tiempo);
-            p.establecerRetardo(tpo);
+            param.establecerRetardo(tpo);
         } catch (NumberFormatException ee) {
             System.out.println("Argumento -r con error. Se ejecuta sin retardo.");            
         }       
     }
 
+    /**
+     * Muestra la ayuda.
+     * 
+     */
     private static void mostrarAyuda() {
        
             System.out.println(

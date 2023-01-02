@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  */
 public class Captura {
         
-    public void capturaPantalla(String fileName) throws Exception {
+    public void capturarPantalla(String fileName) throws Exception {
        
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         Rectangle screenRectangle = new Rectangle(screenSize);
