@@ -17,7 +17,7 @@ public class Principal {
      * 
      * @param args Los argumentos de la línea de comandos
      * 
-     * Nota: para ejecutarlo en win usar -Dfile.encoding=cp850    
+     * Nota: para ejecutarlo en win se puede usar el siguiente parámetro -Dfile.encoding=cp850    
      */
     public static void main(String[] args) {
        
