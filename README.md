@@ -7,11 +7,13 @@ Generates a screenshot in png format, by default without delay, in the current d
 
 # Requisitos previos  /  Pre-requisites
 [es] 
+
 Para compilar: Entorno de desarrollo de Java 1.7 o superior.
 
 Para ejecutar: Entorno de ejecución de Java  1.7 o superior.
 
 [en] 
+
 To compile: Java Development Environment 1.7 or higher.
 
 To run: Java Runtime Environment 1.7 or higher.
