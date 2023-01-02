@@ -14,7 +14,8 @@ public class Principal {
 
     /**
      * Método principal.
-     * @param args Los argumentos de la llínea de comandos
+     * 
+     * @param args Los argumentos de la línea de comandos
      * 
      * Nota: para ejecutarlo en win usar -Dfile.encoding=cp850    
      */
